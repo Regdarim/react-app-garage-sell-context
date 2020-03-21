@@ -39,9 +39,9 @@ const ContactForm = props => (
         <button
           className="button is-primary "
           type="submit"
-          // onClick={this.sendMesseage} whyy?
+          onClick={props.sendMessage}
         >
-          Send
+          Send(form)
         </button>
       </div>
     </form>

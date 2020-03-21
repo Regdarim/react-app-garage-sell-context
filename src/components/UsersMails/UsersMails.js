@@ -1,14 +1,14 @@
 import React from "react";
 
-import UserMail from "../../components/UserMail/UserMail";
+import UserMail from "../UserMail/UserMail";
 
 const UsersMails = props => {
   return (
     <>
       <ul>
         {props.usersMails.map(item => {
-          console.log(props);
-          console.log(props.usersMails);
+          // console.log(props);
+          // console.log(props.usersMails);
           return (
             <li key={item.id}>
               <UserMail

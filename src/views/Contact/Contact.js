@@ -1,15 +1,15 @@
 import React from "react";
 import { usersMails } from "../../data/localData/usersMails";
-import UsersMails from "../UsersMails/UsersMails";
+import UsersMails from "../../components/UsersMails/UsersMails";
 import NavBar from "../../navigation/NavBar";
-import ContactForm from "../../components/ContactForm/ContactForm";
+// import ContactForm from "../../components/ContactForm/ContactForm";
 
 class Contact extends React.Component {
   state = {
     usersMailsArray: [...usersMails]
   };
 
-  sendMesseage = e => {
+  sendMessage = e => {
     e.preventDefault();
 
     const newMail = {
@@ -18,12 +18,13 @@ class Contact extends React.Component {
       desc: e.target.desc.value,
       id: this.state.usersMailsArray.length + 1
     };
-
+    // console.log(this.newMail);
     this.setState(prevState => ({
       usersMailsArray: [...prevState.usersMailsArray, newMail]
     }));
 
-    e.target.reset();
+    // e.target.reset();
+    console.log("Message Send!");
 
     console.log(...this.state.usersMailsArray);
   };
@@ -34,64 +35,69 @@ class Contact extends React.Component {
   render() {
     return (
       <>
-        <NavBar />
-        <ContactForm sendMessage={this.sendMessage} />
-        <UsersMails
-          usersMails={this.state.usersMailsArray}
-          deleteMessage={this.deleteMessage}
-        />
-        {/* <div className="columns">
-          <form
-            className="container column section"
-            onSubmit={this.sendMesseage}
-          >
-            <h1 className="title is-3">Contact Form</h1>
-            <div className="field">
-              <label className="label">Name</label>
-              <div className="control ">
-                <input
-                  className="input"
-                  type="text"
-                  placeholder="Text input"
-                  name="name"
-                />
+        <div className="container">
+          <NavBar />
+          <div className="columns section">
+            <form onSubmit={this.sendMessage}>
+              <input type="text" name="name" />
+              <input type="text" name="mail" />
+
+              <input type="text" name="desc" />
+
+              <button type="submit">Add New Item</button>
+            </form>
+
+            {/* <form
+            // onSubmit={this.sendMesseage}
+            >
+              <h1 className="title is-3">Contact Form</h1>
+              <div className="field">
+                <label className="label">Name</label>
+                <div className="control ">
+                  <input
+                    className="input"
+                    type="text"
+                    placeholder="Text input"
+                    name="name"
+                  />
+                </div>
               </div>
-            </div>
-            <div className="field">
-              <label className="label">Email</label>
-              <p className="control ">
-                <input
-                  className="input"
-                  type="email"
-                  placeholder="Email"
-                  name="mail"
-                />
-              </p>
-            </div>
-            <div className="field">
-              <label className="label">Message</label>
-              <div className="control">
-                <textarea
-                  className="textarea"
-                  placeholder="Textarea"
-                  name="desc"
-                ></textarea>
+
+              <input
+                className="input"
+                type="text"
+                placeholder="Email"
+                name="mail"
+              />
+
+              <div className="field">
+                <label className="label">Message</label>
+                <div className="control">
+                  <textarea
+                    className="textarea"
+                    placeholder="Textarea"
+                    name="desc"
+                  ></textarea>
+                </div>
               </div>
+              <div className="container">
+                <button
+                  className="button is-primary "
+                  type="submit"
+                  onClick={this.sendMessage}
+                >
+                  Send
+                </button>
+              </div>
+            </form> */}
+            <div className="container column">
+              <UsersMails
+                usersMails={this.state.usersMailsArray}
+                deleteMessage={this.deleteMessage}
+              />
             </div>
-            <div className="container">
-              <button
-                className="button is-primary "
-                type="submit"
-                // onClick={this.sendMesseage}
-              >
-                Send
-              </button>
-            </div>
-          </form>
-           <div className="container column">
-           
           </div>
-        </div> */}
+        </div>
       </>
     );
   }

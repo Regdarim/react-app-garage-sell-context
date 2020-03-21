@@ -3,11 +3,11 @@ import style from "./GarageItem.module.scss";
 
 const GarageItem = props => (
   <div className="box section">
-    <article class="media">
+    <article className="media">
       <div className="media-content ">
         <div className="columns">
-          <div class=" column is-one-quarter">
-            <figure class="image is-128x128 is-flex">
+          <div className=" column is-one-quarter">
+            <figure className="image is-128x128 is-flex">
               <img src={props.img} alt={`Authenthic Pictures ${props.title}`} />
             </figure>
           </div>
