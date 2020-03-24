@@ -1,50 +1,106 @@
-import React from "react";
-import style from "./GarageItem.module.scss";
+import React, { useContext } from "react";
+import AppContext from "../../context/context";
 
-const GarageItem = props => (
-  <div className="box section">
-    <article className="media">
-      <div className="media-content ">
-        <div className="columns">
-          <div className=" column is-one-quarter">
-            <figure className="image is-128x128 is-flex">
-              <img src={props.img} alt={`Authenthic Pictures ${props.title}`} />
-            </figure>
-          </div>
-          <div className="section coulumn is-one-half">
-            <h2 className="title is-4 ">{props.title}</h2>
-            <h3 className="title is-6 ">Price:{props.price}</h3>
-          </div>
-        </div>
+const GarageItem = props => {
+  const { title, price, image, desc, counter, toggleModal, id } = props;
+  const context = useContext(AppContext);
+  const { deleteMessage } = context;
 
-        {/* <p>{props.id}</p> */}
-        <div className="">
-          <p className="has-text-grey  column ">{props.desc}</p>
-        </div>
+  //////////RETURN SEGMENTS////////////////////RETURN SEGMENTS////////////////////RETURN SEGMENTS//////////
 
-        <div className="columns">
-          <div className="column">
-            <button className="button is-primary" onClick={props.counter}>
-              Buy Now
-            </button>
-          </div>
-          <div className="column">
-            <button className="button is-info  " onClick={props.toggleModal}>
-              Ask Question
-            </button>
-          </div>
-          <div className="column">
-            <button
-              className="button is-danger  "
-              onClick={() => props.deleteItem(props.id)}
-            >
-              Delete
-            </button>
-          </div>
-        </div>
+  const _renderImageSubColumn = () => (
+    <div className="column is-one-third ">
+      <figure className="image is-3by4  is-flex ">
+        <img src={image} alt={`Authenthic Pictures ${title}`} />
+      </figure>
+      <div className="column has-text-centered">
+        <button className="button is-info  " onClick={toggleModal}>
+          Ask Question
+        </button>
       </div>
-    </article>
-  </div>
-);
+    </div>
+  );
 
+  const _renderDescSubColumn = () => (
+    <div className="column ">
+      <p className="title is-2 ">{title}</p>
+      <div className="container">
+        <button className="button is-danger is-inline" onClick={counter}>
+          Buy Now
+        </button>
+        <p className="subtitle is-3 is-inline column">{price}</p>
+      </div>
+      <div className="column"></div>
+      <hr />
+      <p className="content is-size-6">{desc}</p>
+    </div>
+  );
+
+  const _renderMainColumn = () => (
+    <div className="column is-two-thirds box ">
+      <button
+        className="delete is-small is-pulled-right"
+        onClick={() => deleteMessage(id)}
+      ></button>
+      <div className="column columns">
+        {_renderImageSubColumn()}
+        {_renderDescSubColumn()}
+      </div>
+    </div>
+  );
+  //////////RETURN SEGMENTS END////////////////////RETURN SEGMENTS////////////////////RETURN SEGMENTS//////////
+
+  return (
+    <div className="columns ">
+      <div className="column"></div>
+      {_renderMainColumn()}
+      <div className="column"></div>
+      <hr />
+    </div>
+  );
+
+  // return (
+  //   <div className="box section">
+  //     <article className="media">
+  //       <div className="media-content ">
+  //         <div className="columns">
+  //           <div className=" column is-one-quarter">
+  //             <figure className="image is-128x128 is-flex">
+  //               <img src={image} alt={`Authenthic Pictures ${title}`} />
+  //             </figure>
+  //           </div>
+  //           <div className="section coulumn is-one-half">
+  //             <h2 className="title is-4 ">{title}</h2>
+  //             <h3 className="title is-6 ">Price:{price}</h3>
+  //           </div>
+  //         </div>
+  //         <div className="">
+  //           <p className="has-text-grey  column ">{desc}</p>
+  //         </div>
+
+  //         <div className="columns">
+  //           <div className="column">
+  //             <button className="button is-primary" onClick={counter}>
+  //               Buy Now
+  //             </button>
+  //           </div>
+  //           <div className="column">
+  //             <button className="button is-info  " onClick={toggleModal}>
+  //               Ask Question
+  //             </button>
+  //           </div>
+  //           <div className="column">
+  //             <button
+  //               className="button is-danger  "
+  //               onClick={() => deleteItem(id)}
+  //             >
+  //               Delete
+  //             </button>
+  //           </div>
+  //         </div>
+  //       </div>
+  //     </article>
+  //   </div>
+  // );
+};
 export default GarageItem;

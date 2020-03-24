@@ -1,7 +1,7 @@
 import React from "react";
 const ContactForm = props => (
   <>
-    <form className="container " onSubmit={props.sendMesseage}>
+    <form className="container " onSubmit={props.sendMessage}>
       <h1 className="title is-3">Contact Form</h1>
       <div className="field">
         <label className="label">Name</label>
@@ -36,11 +36,7 @@ const ContactForm = props => (
         </div>
       </div>
       <div className="container">
-        <button
-          className="button is-primary "
-          type="submit"
-          onClick={props.sendMessage}
-        >
+        <button className="button is-primary " type="submit">
           Send(form)
         </button>
       </div>

@@ -1,106 +1,109 @@
-import React from "react";
+import React, { useState } from "react";
 import { usersMails } from "../../data/localData/usersMails";
 import UsersMails from "../../components/UsersMails/UsersMails";
 import NavBar from "../../navigation/NavBar";
-// import ContactForm from "../../components/ContactForm/ContactForm";
+import ContactForm from "../../components/ContactForm/ContactForm";
 
-class Contact extends React.Component {
-  state = {
-    usersMailsArray: [...usersMails]
-  };
+const Contact = () => {
+  const [usersMailsArray, setUsersMailsArray] = useState([...usersMails]);
 
-  sendMessage = e => {
+  const sendMessage = e => {
     e.preventDefault();
 
     const newMail = {
       name: e.target.name.value,
       mail: e.target.mail.value,
       desc: e.target.desc.value,
-      id: this.state.usersMailsArray.length + 1
+      id: usersMailsArray.length + 1
     };
-    // console.log(this.newMail);
-    this.setState(prevState => ({
-      usersMailsArray: [...prevState.usersMailsArray, newMail]
-    }));
+    setUsersMailsArray([...usersMailsArray, newMail]);
 
-    // e.target.reset();
-    console.log("Message Send!");
-
-    console.log(...this.state.usersMailsArray);
+    console.log(usersMailsArray);
   };
-  deleteMessage = id => {
-    console.log("hi");
+  const deleteMessage = id => {
+    const filteredUsersMailsArray = usersMailsArray.filter(
+      item => item.id !== id
+    );
+
+    setUsersMailsArray(filteredUsersMailsArray);
+
+    console.log(id);
+    console.log(usersMailsArray);
   };
 
-  render() {
-    return (
-      <>
-        <div className="container">
-          <NavBar />
-          <div className="columns section">
-            <form onSubmit={this.sendMessage}>
-              <input type="text" name="name" />
-              <input type="text" name="mail" />
+  return (
+    <>
+      <div className="container">
+        <NavBar />
+        <div className="columns section">
+          <div className="column">
+            <ContactForm sendMessage={sendMessage} />
+          </div>
 
-              <input type="text" name="desc" />
-
-              <button type="submit">Add New Item</button>
-            </form>
-
-            {/* <form
-            // onSubmit={this.sendMesseage}
-            >
-              <h1 className="title is-3">Contact Form</h1>
-              <div className="field">
-                <label className="label">Name</label>
-                <div className="control ">
-                  <input
-                    className="input"
-                    type="text"
-                    placeholder="Text input"
-                    name="name"
-                  />
-                </div>
-              </div>
-
-              <input
-                className="input"
-                type="text"
-                placeholder="Email"
-                name="mail"
-              />
-
-              <div className="field">
-                <label className="label">Message</label>
-                <div className="control">
-                  <textarea
-                    className="textarea"
-                    placeholder="Textarea"
-                    name="desc"
-                  ></textarea>
-                </div>
-              </div>
-              <div className="container">
-                <button
-                  className="button is-primary "
-                  type="submit"
-                  onClick={this.sendMessage}
-                >
-                  Send
-                </button>
-              </div>
-            </form> */}
-            <div className="container column">
-              <UsersMails
-                usersMails={this.state.usersMailsArray}
-                deleteMessage={this.deleteMessage}
-              />
-            </div>
+          <div className="container column">
+            <UsersMails
+              usersMails={usersMailsArray}
+              deleteMessage={deleteMessage}
+            />
           </div>
         </div>
-      </>
-    );
-  }
-}
-
+      </div>
+    </>
+  );
+};
 export default Contact;
+
+// class Contact extends React.Component {
+//   state = {
+//     usersMailsArray: [...usersMails],
+//     filteredUsersMailsArray: []
+//   };
+
+//   sendMessage = e => {
+//     e.preventDefault();
+
+//     const newMail = {
+//       name: e.target.name.value,
+//       mail: e.target.mail.value,
+//       desc: e.target.desc.value,
+//       id: this.state.usersMailsArray.length + 1
+//     };
+//     this.setState(prevState => ({
+//       usersMailsArray: [...prevState.usersMailsArray, newMail]
+//     }));
+
+//     console.log("Message Send!");
+//     console.log(...this.state.usersMailsArray);
+//   };
+//   deleteMessage = id => {
+//     const filteredUsersMailsArray = this.state.usersMailsArray.filter(
+//       item => id !== item.id
+//     );
+//     console.log(filteredUsersMailsArray);
+//     this.setState({
+//       usersMailsArray: this.filteredUsersMailsArray
+//     });
+//   };
+
+//   render() {
+//     return (
+//       <>
+//         <div className="container">
+//           <NavBar />
+//           <div className="columns section">
+//             <div className="column">
+//               <ContactForm sendMessage={this.sendMessage} />
+//             </div>
+
+//             <div className="container column">
+//               <UsersMails
+//                 usersMails={this.state.usersMailsArray}
+//                 deleteMessage={this.deleteMessage}
+//               />
+//             </div>
+//           </div>
+//         </div>
+//       </>
+//     );
+//   }
+// }

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import NavBar from "../../navigation/NavBar";
+import AppContext from "../../context/context";
 
-const AboutProject = () => (
-  <>
+const AboutProject = () => {
+  const context = useContext(AppContext);
+  return (
     <div className="container">
       <NavBar />
       <div className="container section">
@@ -13,9 +15,10 @@ const AboutProject = () => (
           quae velit suscipit mollitia quod repellat accusamus ut illum placeat
           soluta, nobis esse!
         </p>
+        <p>{context}</p>
       </div>
     </div>
-  </>
-);
+  );
+};
 
 export default AboutProject;

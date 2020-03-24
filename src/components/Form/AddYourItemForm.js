@@ -4,16 +4,8 @@ import styles from "./AddYourItemForm.module.scss";
 const AddYourItemForm = props => (
   <>
     <h2 className="title is-4 has-text-centered	">Add Your Item</h2>
+
     <form onSubmit={props.addItem}>
-      <input type="text" name="title" />
-      <input type="text" name="desc" />
-
-      <input type="text" name="price" />
-
-      <button type="submit">Add New Item</button>
-    </form>
-
-    {/* <form onSubmit={props.addItem}>
       <div className="column">
         <input
           className="input"
@@ -46,13 +38,12 @@ const AddYourItemForm = props => (
         />
 
         <div className="column has-text-centered">
-           <button className="button is-primary" type="submit">
+          <button className="button is-primary" type="submit">
             Add Item
-          </button> 
+          </button>
         </div>
       </div>
     </form>
-  */}
   </>
 );
 
