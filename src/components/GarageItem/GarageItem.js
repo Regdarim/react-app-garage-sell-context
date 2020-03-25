@@ -4,7 +4,7 @@ import AppContext from "../../context/context";
 const GarageItem = props => {
   const { title, price, image, desc, counter, toggleModal, id } = props;
   const context = useContext(AppContext);
-  const { deleteMessage } = context;
+  const { deleteGarageItem } = context;
 
   //////////RETURN SEGMENTS////////////////////RETURN SEGMENTS////////////////////RETURN SEGMENTS//////////
 
@@ -40,7 +40,7 @@ const GarageItem = props => {
     <div className="column is-two-thirds box ">
       <button
         className="delete is-small is-pulled-right"
-        onClick={() => deleteMessage(id)}
+        onClick={() => deleteGarageItem(id)}
       ></button>
       <div className="column columns">
         {_renderImageSubColumn()}

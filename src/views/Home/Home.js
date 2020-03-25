@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import GarageItemList from "../../components/GarageItemsList/GarageItemList";
 import NavBar from "../../navigation/NavBar";
-
 import RecentlyAdded from "../../components/RecetlyAdded/RecentlyAdded";
 import AskQuestionModal from "../../components/AskQuestionModal/AskQuestionModal";
 

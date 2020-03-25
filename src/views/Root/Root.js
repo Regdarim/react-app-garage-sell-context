@@ -8,8 +8,6 @@ import AppContext from "../../context/context";
 import { initialGarageItems } from "../../data/localData/initialGarageItems";
 
 const Root = () => {
-  const [text, setText] = useState("jakis tekst");
-
   const [garageItems, setGarageItems] = useState([...initialGarageItems]);
   const [recentlyAddedItems, setRecentlyAddedItems] = useState([]);
 
