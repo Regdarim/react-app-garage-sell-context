@@ -10,6 +10,7 @@ import { initialGarageItems } from "../../data/localData/initialGarageItems";
 const Root = () => {
   const [garageItems, setGarageItems] = useState([...initialGarageItems]);
   const [recentlyAddedItems, setRecentlyAddedItems] = useState([]);
+  const [isActive, setIsActive] = useState(false);
 
   const addGarageItem = e => {
     e.preventDefault();
@@ -43,6 +44,11 @@ const Root = () => {
     setRecentlyAddedItems(filteredRecentItems);
   };
 
+  // if (window.location.pathname === routes.home) setIsActive(true);
+
+  // console.log(window.location.pathname);
+  // console.log(routes.home);
+
   return (
     <BrowserRouter>
       <AppContext.Provider
@@ -50,7 +56,8 @@ const Root = () => {
           garageItems,
           addGarageItem,
           deleteGarageItem,
-          recentlyAddedItems
+          recentlyAddedItems,
+          isActive
         }}
       >
         <Switch>

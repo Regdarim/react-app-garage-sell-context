@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import { routes } from "../routes";
 import cartSvg from "../assets/icons/supermarket.svg";
 import AddYourItemModal from "../components/AddYourItemModal/AddYourItemModal";
+import AppContext from "../context/context";
 
 const NavBar = props => {
   const { home, aboutProject, contact } = routes;
   const { buyCounter, addItem } = props;
+
+  const context = useContext(AppContext);
+  const { isActive } = context;
 
   //////////RETURN JSX SEGMENTS////////////////////RETURN SEGMENTS////////////////////RETURN SEGMENTS//////////
 
@@ -26,10 +29,9 @@ const NavBar = props => {
         Contact
       </Link>
       <div className="navbar-item" />
-
-      {/* <NavLink exact to='/about'> */}
-      <AddYourItemModal addItem={addItem} />
-      {/* </NavLink> */}
+      {window.location.pathname === routes.home && (
+        <AddYourItemModal addItem={addItem} />
+      )}
     </div>
   );
 
