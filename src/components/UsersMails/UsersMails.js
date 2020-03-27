@@ -1,18 +1,19 @@
-import React from "react";
-
+import React, { useContext } from "react";
 import UserMail from "../UserMail/UserMail";
+import AppContext from "../../context/context";
 
-const UsersMails = props => {
-  const { usersMails, deleteMessage } = props;
+const UsersMails = () => {
+  const context = useContext(AppContext);
+  const { usersMailsArray } = context;
 
   return (
     <>
       <ul>
-        {usersMails.map(item => {
+        {usersMailsArray.map(item => {
           const { id } = item;
           return (
             <li key={id}>
-              <UserMail {...item} deleteMessage={deleteMessage} />
+              <UserMail {...item} />
             </li>
           );
         })}

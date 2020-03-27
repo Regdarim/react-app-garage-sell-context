@@ -4,13 +4,14 @@ import { routes } from "../routes";
 import cartSvg from "../assets/icons/supermarket.svg";
 import AddYourItemModal from "../components/AddYourItemModal/AddYourItemModal";
 import AppContext from "../context/context";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
-const NavBar = props => {
-  const { home, aboutProject, contact } = routes;
-  const { buyCounter, addItem } = props;
-
+const NavBar = () => {
   const context = useContext(AppContext);
-  const { isActive } = context;
+
+  const { home, aboutProject, contact } = routes;
+  const { buyCounter, isOn, toggleManager } = context;
 
   //////////RETURN JSX SEGMENTS////////////////////RETURN SEGMENTS////////////////////RETURN SEGMENTS//////////
 
@@ -29,10 +30,33 @@ const NavBar = props => {
         Contact
       </Link>
       <div className="navbar-item" />
+      {/* <AddYourItemModal addItem={addItem} /> */}
       {window.location.pathname === routes.home && (
-        <AddYourItemModal addItem={addItem} />
+        <button
+          className="button is-primary"
+          id="addItemModal"
+          onClick={toggleManager}
+        >
+          Add Your Item <h1> </h1>
+          <FontAwesomeIcon icon={faPlusCircle} className="icon" />
+        </button>
       )}
+      {isOn === "addItemModalOn" && <AddYourItemModal />}
     </div>
+  );
+
+  const _renderLogInButton = () => (
+    <a className="button is-light" id="logInButton" onClick={toggleManager}>
+      {isOn === "logInButtonOn" ? _renderLogOutButton() : "Log In"}
+      {console.log(isOn)}
+    </a>
+  );
+
+  const _renderLogOutButton = () => (
+    <a className="button is-light" id="close" onClick={toggleManager}>
+      Log Out
+      {console.log(isOn)}
+    </a>
   );
 
   const _renderNavbarEnd = () => (
@@ -44,12 +68,10 @@ const NavBar = props => {
       <div className="navbar-item"></div>
 
       <div className="navbar-item ">
-        <div className="buttons is-flex">
-          <a className="button is-primary">
-            <strong>Sign up</strong>
-          </a>
-          <a className="button is-light">Log in</a>
-        </div>
+        <a className="button is-primary">
+          <strong>Sign up</strong>
+        </a>
+        {_renderLogInButton()}
       </div>
     </div>
   );

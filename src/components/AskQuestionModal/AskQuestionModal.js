@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import ContactForm from "../ContactForm/ContactForm";
+import AppContext from "../../context/context";
 
-const AskQuestionModal = props => {
+const AskQuestionModal = () => {
+  const context = useContext(AppContext);
+  const { toggleManager } = context;
+
   return (
     <div className="modal is-active">
-      <div className="modal-background" onClick={props.closeModal} />
+      <div className="modal-background" id="close" onClick={toggleManager} />
       <div className="modal-card">
         <header className="modal-card-head">
-          <p className="modal-card-title">{props.title}</p>
-          <button className="delete" onClick={props.closeModal} />
+          <button className="delete" id="close" onClick={toggleManager} />
         </header>
         <section className="modal-card-body">
           <div className="content">
@@ -16,7 +19,7 @@ const AskQuestionModal = props => {
           </div>
         </section>
         <footer className="modal-card-foot">
-          <a className="button" onClick={props.closeModal}>
+          <a className="button" id="close" onClick={toggleManager}>
             Cancel
           </a>
         </footer>

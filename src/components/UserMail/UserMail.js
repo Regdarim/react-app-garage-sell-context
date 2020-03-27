@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
+import AppContext from "../../context/context";
 
 // const _renderUserMail = () => ()
 
 const UserMail = props => {
-  const { deleteMessage, name, mail, desc, id } = props;
+  const { name, mail, desc, id } = props;
+  const context = useContext(AppContext);
+  const { deleteMessage } = context;
+
   return (
     <div className="section is-danger">
       <a

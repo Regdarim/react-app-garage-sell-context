@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import AppContext from "../../context/context";
 
 const GarageItem = props => {
-  const { title, price, image, desc, counter, toggleModal, id } = props;
+  const { title, price, image, desc, id } = props;
   const context = useContext(AppContext);
-  const { deleteGarageItem } = context;
+  const { deleteGarageItem, toggleManager, counter } = context;
 
   //////////RETURN SEGMENTS////////////////////RETURN SEGMENTS////////////////////RETURN SEGMENTS//////////
 
@@ -14,7 +14,11 @@ const GarageItem = props => {
         <img src={image} alt={`Authenthic Pictures ${title}`} />
       </figure>
       <div className="column has-text-centered">
-        <button className="button is-info  " onClick={toggleModal}>
+        <button
+          className="button is-info"
+          id="askQuestionModal"
+          onClick={toggleManager}
+        >
           Ask Question
         </button>
       </div>

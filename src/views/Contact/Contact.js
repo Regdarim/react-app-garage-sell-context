@@ -1,50 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { usersMails } from "../../data/localData/usersMails";
+
 import UsersMails from "../../components/UsersMails/UsersMails";
 import NavBar from "../../navigation/NavBar";
 import ContactForm from "../../components/ContactForm/ContactForm";
 
 const Contact = () => {
-  const [usersMailsArray, setUsersMailsArray] = useState([...usersMails]);
-
-  const sendMessage = e => {
-    e.preventDefault();
-
-    const newMail = {
-      name: e.target.name.value,
-      mail: e.target.mail.value,
-      desc: e.target.desc.value,
-      id: usersMailsArray.length + 1
-    };
-    setUsersMailsArray([...usersMailsArray, newMail]);
-
-    console.log(usersMailsArray);
-  };
-  const deleteMessage = id => {
-    const filteredUsersMailsArray = usersMailsArray.filter(
-      item => item.id !== id
-    );
-
-    setUsersMailsArray(filteredUsersMailsArray);
-
-    console.log(id);
-    console.log(usersMailsArray);
-  };
-
   return (
     <>
       <div className="container">
         <NavBar />
         <div className="columns section">
           <div className="column">
-            <ContactForm sendMessage={sendMessage} />
+            <ContactForm />
           </div>
-
           <div className="container column">
-            <UsersMails
-              usersMails={usersMailsArray}
-              deleteMessage={deleteMessage}
-            />
+            <UsersMails />
           </div>
         </div>
       </div>

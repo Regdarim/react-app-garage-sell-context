@@ -1,14 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
+
 import AddYourItemForm from "../Form/AddYourItemForm";
-import RecentlyAdded from "../RecetlyAdded/RecentlyAdded";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+
+import AppContext from "../../context/context";
 
 ///////////////////////****PYTANIA****????????????????????????????
-//Dlaczego przy consollogu tablic pokazuje z opoznieniem?
 //
-//Czy jest sens bawić się teraz w przekazywanie danych z formularza do home?
-//,czy poczekać na lepsze narzędzia, bo nie ma co sie bawic?
 //
 //Czym się rózni {!isActive} od {() => !isActive} ?
 //
@@ -16,56 +13,49 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 //
 //Czy warto mieć osobny komponent do buttona logowania/wylogowania?
 //
-//Jak podpiac 2 eventy pod 1 button? form i wyłączanie modala przy wyslaniu
 //
 ///////////////////////****PYTANIA****????????????????????????????
 
-const AddYourItemModal = props => {
-  const [isActive, toggleModal] = useState(false);
-  const [isLogged, toggleLogin] = useState(false);
+const AddYourItemModal = () => {
+  const context = useContext(AppContext);
+  const { toggleManager, isOn } = context;
 
-  const _renderModalAddItemButton = () => (
-    <button
-      className="button is-primary"
-      onClick={() => toggleModal(!isActive)}
-    >
-      Add Your Item <h1> </h1>
-      <FontAwesomeIcon icon={faPlusCircle} className="icon	" />
-    </button>
+  // isOn === "logInButtonOn" ? "Log Out" : "Log In"
+  const _renderLogInButton = () => (
+    <a className="button is-info" id="logInButton" onClick={toggleManager}>
+      {isOn === "logInButtonOn" ? _renderLogOutButton() : "Log In"}
+      {console.log(isOn)}
+    </a>
+  );
+
+  // tworze nowy button z mozliwoscia przeslania id="close"
+  const _renderLogOutButton = () => (
+    <a className="button is-warning" id="close" onClick={toggleManager}>
+      Log Out
+      {console.log(isOn)}
+    </a>
   );
 
   const _renderModal = () => (
     <div className="modal is-active">
-      <div
-        className="modal-background"
-        onClick={() => toggleModal(!isActive)}
-      />
+      <div className="modal-background" id="close" onClick={toggleManager} />
       <div className="modal-card">
         <header className="modal-card-head">
           <p className="modal-card-title"></p>
-          <button className="delete" onClick={() => toggleModal(!isActive)} />
+          <button className="delete" id="close" onClick={toggleManager} />
         </header>
         <section className="modal-card-body">
-          <AddYourItemForm addItem={props.addItem} />
-          <button
-            className="button is-info
-            "
-            onClick={() => toggleLogin(!isLogged)}
-          >
-            {isLogged ? "Log out" : "Log in"}
-          </button>
-          <h1>You are: {isLogged ? "Logged In" : "Not Logged In"}</h1>
+          <AddYourItemForm />
+          {_renderLogInButton()}
+          <p>
+            You are: {isOn === "logInButtonOn" ? "Logged In" : "Logged Out"}{" "}
+          </p>
         </section>
       </div>
     </div>
   );
 
-  return (
-    <>
-      {_renderModalAddItemButton()}
-      {isActive && _renderModal()}
-    </>
-  );
+  return <>{_renderModal()}</>;
 };
 
 export default AddYourItemModal;

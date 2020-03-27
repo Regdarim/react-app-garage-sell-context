@@ -1,9 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import NavBar from "../../navigation/NavBar";
-import AppContext from "../../context/context";
 
 const AboutProject = () => {
-  const context = useContext(AppContext);
   return (
     <div className="container">
       <NavBar />
@@ -15,7 +13,6 @@ const AboutProject = () => {
           quae velit suscipit mollitia quod repellat accusamus ut illum placeat
           soluta, nobis esse!
         </p>
-        <p>{context}</p>
       </div>
     </div>
   );
