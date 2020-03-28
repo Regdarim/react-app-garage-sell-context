@@ -11,7 +11,7 @@ const NavBar = () => {
   const context = useContext(AppContext);
 
   const { home, aboutProject, contact } = routes;
-  const { buyCounter, isOn, toggleManager } = context;
+  const { buyCounter, isOn, toggleManager, resetLocalStorage } = context;
 
   //////////RETURN JSX SEGMENTS////////////////////RETURN SEGMENTS////////////////////RETURN SEGMENTS//////////
 
@@ -29,20 +29,28 @@ const NavBar = () => {
       <Link to={contact} className="navbar-item">
         Contact
       </Link>
-      <div className="navbar-item" />
-      {/* <AddYourItemModal addItem={addItem} /> */}
-      {window.location.pathname === routes.home && (
-        <button
-          className="button is-primary"
-          id="addItemModal"
-          onClick={toggleManager}
-        >
-          Add Your Item <h1> </h1>
-          <FontAwesomeIcon icon={faPlusCircle} className="icon" />
-        </button>
-      )}
-      {isOn === "addItemModalOn" && <AddYourItemModal />}
+      <div className="navbar-item">
+        {/* <AddYourItemModal addItem={addItem} /> */}
+        {window.location.pathname === routes.home &&
+          _renderAddItemModalButton()}
+        {isOn === "addItemModalOn" && <AddYourItemModal />}
+      </div>
+      <div className="navbar-item ">
+        {window.location.pathname === routes.home &&
+          _renderResetLocalStorageButton()}
+      </div>
     </div>
+  );
+
+  const _renderAddItemModalButton = () => (
+    <button
+      className="button is-primary"
+      id="addItemModal"
+      onClick={toggleManager}
+    >
+      Add Your Item <h1> </h1>
+      <FontAwesomeIcon icon={faPlusCircle} className="icon" />
+    </button>
   );
 
   const _renderLogInButton = () => (
@@ -51,7 +59,7 @@ const NavBar = () => {
       {console.log(isOn)}
     </a>
   );
-
+  // isOn === 'logInButtonOn' ? 'Log Out' ? isOn === 'logOutButton' : 'Log In'
   const _renderLogOutButton = () => (
     <a className="button is-light" id="close" onClick={toggleManager}>
       Log Out
@@ -59,6 +67,11 @@ const NavBar = () => {
     </a>
   );
 
+  const _renderResetLocalStorageButton = () => (
+    <button className="button is-grey" onClick={resetLocalStorage}>
+      Reset Local Storage
+    </button>
+  );
   const _renderNavbarEnd = () => (
     <div className="navbar-end is-flex ">
       <div className="navbar-item">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Home from "../Home/Home";
@@ -10,12 +10,38 @@ import { initialGarageItems } from "../../data/localData/initialGarageItems";
 import { usersMails } from "../../data/localData/usersMails";
 
 const Root = () => {
-  const [garageItems, setGarageItems] = useState([...initialGarageItems]);
+  const myStorage = JSON.parse(localStorage.getItem("garageItems"));
+  console.log(myStorage);
+
+  const [garageItems, setGarageItems] = useState(myStorage);
   const [recentlyAddedItems, setRecentlyAddedItems] = useState([]);
   const [usersMailsArray, setUsersMailsArray] = useState([...usersMails]);
   const [buyCounter, setBuyCounter] = useState(0);
 
   const [isOn, setIsOn] = useState("allOff");
+
+  useEffect(() => {
+    setIntitialGarageStorageItems();
+  }, []);
+
+  const setIntitialGarageStorageItems = () => {
+    localStorage.setItem(
+      "garageItems",
+      JSON.stringify([...initialGarageItems])
+    );
+  };
+
+  useEffect(() => {
+    localStorage.setItem("garageItems", JSON.stringify(garageItems));
+  }, [garageItems]);
+
+  const resetLocalStorage = () => {
+    localStorage.setItem(
+      "garageItems",
+      JSON.stringify([...initialGarageItems])
+    );
+    window.location.reload();
+  };
 
   const toggleManager = e => {
     switch (e.target.id) {
@@ -112,7 +138,8 @@ const Root = () => {
           isOn,
           toggleManager,
           counter: counterFunction,
-          buyCounter
+          buyCounter,
+          resetLocalStorage
         }}
       >
         <Switch>
