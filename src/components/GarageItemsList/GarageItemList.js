@@ -1,18 +1,18 @@
 import React, { useContext } from "react";
 import GarageItem from "../GarageItem/GarageItem";
 import AppContext from "../../context/context";
+import DeleteItemAlertModal from "../DeleteItemAlertModal/DeleteItemAlertModal";
 
 const GarageItemList = props => {
-  const { toggleModal, counter } = props;
   const context = useContext(AppContext);
-
+  const { isOn } = context;
   return (
     <ul>
       {context.garageItems.map(item => {
         const { id } = item;
         return (
           <li key={id}>
-            <GarageItem {...item} toggleModal={toggleModal} counter={counter} />
+            <GarageItem {...item} />
             <hr />
           </li>
         );

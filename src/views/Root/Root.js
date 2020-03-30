@@ -8,17 +8,33 @@ import { routes } from "../../routes";
 import AppContext from "../../context/context";
 import { initialGarageItems } from "../../data/localData/initialGarageItems";
 import { usersMails } from "../../data/localData/usersMails";
+import DeleteItemAlertModal from "../../components/DeleteItemAlertModal/DeleteItemAlertModal";
 
 const Root = () => {
-  const myStorage = JSON.parse(localStorage.getItem("garageItems"));
-  console.log(myStorage);
+  const garageItemsStorage = JSON.parse(localStorage.getItem("garageItems"));
+  console.log(garageItemsStorage);
+  const usersMailsStorage = JSON.parse(localStorage.getItem("usersMailsArray"));
+  console.log(usersMailsStorage);
 
-  const [garageItems, setGarageItems] = useState(myStorage);
+  const [garageItems, setGarageItems] = useState(garageItemsStorage);
   const [recentlyAddedItems, setRecentlyAddedItems] = useState([]);
-  const [usersMailsArray, setUsersMailsArray] = useState([...usersMails]);
+  const [usersMailsArray, setUsersMailsArray] = useState(usersMailsStorage);
   const [buyCounter, setBuyCounter] = useState(0);
 
-  const [isOn, setIsOn] = useState("allOff");
+  const [isOn, setIsOn] = useState("allOff"); //toggleManagerState
+  const [innerIsOn, setInnerIsOn] = useState("allOff"); //secondToggleManagerState
+
+  useEffect(() => {
+    setInitialUsersMailsStorageArray();
+  }, []);
+
+  const setInitialUsersMailsStorageArray = () => {
+    localStorage.setItem("usersMailsArray", JSON.stringify([...usersMails]));
+  };
+
+  useEffect(() => {
+    localStorage.setItem("usersMailsArray", JSON.stringify(usersMailsArray));
+  }, [usersMailsArray]);
 
   useEffect(() => {
     setIntitialGarageStorageItems();
@@ -43,24 +59,38 @@ const Root = () => {
     window.location.reload();
   };
 
-  const toggleManager = e => {
-    switch (e.target.id) {
+  const toggleManager = type => {
+    switch (type) {
       case "askQuestionModal":
         setIsOn("askQuestionModalOn");
         break;
       case "addItemModal":
         setIsOn("addItemModalOn");
+        setInnerIsOn("logInButton");
+
+        break;
+      case "deleteItemAlertModal":
+        setIsOn("deleteItemAlertModalOn");
         break;
       case "logInButton":
-        setIsOn("logInButtonOn");
+        setInnerIsOn("logOutButton");
+        break;
+      case "logOutButton":
+        setInnerIsOn("logInButton");
+        break;
+      case "deleteItem":
+        setInnerIsOn("deleteGarageItemOn");
         break;
       // case "close":
       //   setIsOn("off");
       //   break;
       default:
         setIsOn("allOff");
+        setInnerIsOn("allOff");
+        break;
     }
     console.log(isOn);
+    console.log(innerIsOn);
   };
 
   const addGarageItem = e => {
@@ -137,6 +167,7 @@ const Root = () => {
           usersMailsArray,
           isOn,
           toggleManager,
+          innerIsOn,
           counter: counterFunction,
           buyCounter,
           resetLocalStorage

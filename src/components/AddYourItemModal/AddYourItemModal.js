@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import styles from "./AddYourItemModal.scss";
 
 import AddYourItemForm from "../Form/AddYourItemForm";
 
@@ -7,7 +8,7 @@ import AppContext from "../../context/context";
 ///////////////////////****PYTANIA****????????????????????????????
 //
 //
-//Czym się rózni {!isActive} od {() => !isActive} ?
+//
 //
 //Jak ustawić klase buttona przy logowaniu booleanem?
 //
@@ -18,22 +19,16 @@ import AppContext from "../../context/context";
 
 const AddYourItemModal = () => {
   const context = useContext(AppContext);
-  const { toggleManager, isOn } = context;
+  const { toggleManager, innerIsOn } = context;
 
-  // isOn === "logInButtonOn" ? "Log Out" : "Log In"
-  const _renderLogInButton = () => (
-    <a className="button is-info" id="logInButton" onClick={toggleManager}>
-      {isOn === "logInButtonOn" ? _renderLogOutButton() : "Log In"}
-      {console.log(isOn)}
-    </a>
-  );
-
-  // tworze nowy button z mozliwoscia przeslania id="close"
-  const _renderLogOutButton = () => (
-    <a className="button is-warning" id="close" onClick={toggleManager}>
-      Log Out
-      {console.log(isOn)}
-    </a>
+  const _renderLogButton = () => (
+    <button onClick={() => toggleManager(innerIsOn)}>
+      {innerIsOn === "logInButton"
+        ? "Log out"
+        : innerIsOn === "logOutButton"
+        ? "Log in"
+        : ""}
+    </button>
   );
 
   const _renderModal = () => (
@@ -46,9 +41,9 @@ const AddYourItemModal = () => {
         </header>
         <section className="modal-card-body">
           <AddYourItemForm />
-          {_renderLogInButton()}
+          {_renderLogButton()}
           <p>
-            You are: {isOn === "logInButtonOn" ? "Logged In" : "Logged Out"}{" "}
+            You are: {innerIsOn === "logInButton" ? "Logged In" : "Logged Out"}
           </p>
         </section>
       </div>

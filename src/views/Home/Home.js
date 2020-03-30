@@ -4,10 +4,11 @@ import NavBar from "../../navigation/NavBar";
 import RecentlyAdded from "../../components/RecetlyAdded/RecentlyAdded";
 import AskQuestionModal from "../../components/AskQuestionModal/AskQuestionModal";
 import AppContext from "../../context/context";
+import DeleteItemAlertModal from "../../components/DeleteItemAlertModal/DeleteItemAlertModal";
 
 const Home = () => {
   const context = useContext(AppContext);
-  const { isOn } = context;
+  const { isOn, deleteItemModalOn } = context;
 
   const _renderRecentlyAdded = () => (
     <div className="column">
@@ -28,6 +29,7 @@ const Home = () => {
           {_renderRecentlyAdded()}
           {_renderGarageItemList()}
           {isOn === "askQuestionModalOn" && <AskQuestionModal />}
+          {deleteItemModalOn && <DeleteItemAlertModal />}
         </div>
       </div>
     </>

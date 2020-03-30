@@ -1,0 +1,9 @@
+@charset "utf-8";
+@import "../../../node_modules/bulma/bulma.sass";
+
+#logOutButton {
+  @extend .button;
+  @extend .is-warning;
+  z-index: 100;
+  margin: 0;
+}

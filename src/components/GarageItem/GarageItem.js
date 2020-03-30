@@ -4,7 +4,7 @@ import AppContext from "../../context/context";
 const GarageItem = props => {
   const { title, price, image, desc, id } = props;
   const context = useContext(AppContext);
-  const { deleteGarageItem, toggleManager, counter } = context;
+  const { toggleManager, counter, deleteGarageItem, innerIsOn } = context;
 
   //////////RETURN SEGMENTS////////////////////RETURN SEGMENTS////////////////////RETURN SEGMENTS//////////
 
@@ -40,11 +40,17 @@ const GarageItem = props => {
     </div>
   );
 
+  // let promiseToClickYes = new Promise((resolve, reject) => {
+  //   toggleManager();
+  //   innerIsOn === "deleteGarageItemOn" ? resolve() : reject();
+  // });
+
   const _renderMainColumn = () => (
     <div className="column is-two-thirds box ">
       <button
         className="delete is-small is-pulled-right"
-        onClick={() => deleteGarageItem(id)}
+        id="deleteItemAlertModal"
+        onClick={toggleManager}
       ></button>
       <div className="column columns">
         {_renderImageSubColumn()}

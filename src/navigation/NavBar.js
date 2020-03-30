@@ -9,9 +9,10 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
   const context = useContext(AppContext);
+  const { buyCounter, isOn, toggleManager, resetLocalStorage } = context;
 
   const { home, aboutProject, contact } = routes;
-  const { buyCounter, isOn, toggleManager, resetLocalStorage } = context;
+  const { pathname } = window.location;
 
   //////////RETURN JSX SEGMENTS////////////////////RETURN SEGMENTS////////////////////RETURN SEGMENTS//////////
 
@@ -31,13 +32,11 @@ const NavBar = () => {
       </Link>
       <div className="navbar-item">
         {/* <AddYourItemModal addItem={addItem} /> */}
-        {window.location.pathname === routes.home &&
-          _renderAddItemModalButton()}
+        {pathname === home && _renderAddItemModalButton()}
         {isOn === "addItemModalOn" && <AddYourItemModal />}
       </div>
       <div className="navbar-item ">
-        {window.location.pathname === routes.home &&
-          _renderResetLocalStorageButton()}
+        {pathname === home && _renderResetLocalStorageButton()}
       </div>
     </div>
   );
@@ -45,8 +44,9 @@ const NavBar = () => {
   const _renderAddItemModalButton = () => (
     <button
       className="button is-primary"
-      id="addItemModal"
-      onClick={toggleManager}
+      // id="addItemModal"
+      value="addItemModal"
+      onClick={() => toggleManager("addItemModal")}
     >
       Add Your Item <h1> </h1>
       <FontAwesomeIcon icon={faPlusCircle} className="icon" />
@@ -55,13 +55,21 @@ const NavBar = () => {
 
   const _renderLogInButton = () => (
     <a className="button is-light" id="logInButton" onClick={toggleManager}>
-      {isOn === "logInButtonOn" ? _renderLogOutButton() : "Log In"}
-      {console.log(isOn)}
+      {isOn !== "logOutButtonOn"
+        ? isOn === "logInButtonOn"
+          ? _renderLogOutButton()
+          : "Log In"
+        : "Log In"}
     </a>
   );
+
+  //b ? (c ? d : e)
+  // logInButtonIsOn ? "Log Out" : "Log In"
+  //logInButtonIsOn ? (logOutButtonIsOn ? "Log In" : "Log Out") : "Log In"
+
   // isOn === 'logInButtonOn' ? 'Log Out' ? isOn === 'logOutButton' : 'Log In'
   const _renderLogOutButton = () => (
-    <a className="button is-light" id="close" onClick={toggleManager}>
+    <a className="button is-light" id="logOutButton" onClick={toggleManager}>
       Log Out
       {console.log(isOn)}
     </a>
