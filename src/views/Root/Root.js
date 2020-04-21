@@ -36,6 +36,11 @@ const Root = () => {
     localStorage.setItem("usersMailsArray", JSON.stringify(usersMailsArray));
   }, [usersMailsArray]);
 
+  const resetUsersMailArray = () => {
+    localStorage.setItem("usersMailsArray", JSON.stringify([...usersMails]));
+    window.location.reload();
+  };
+
   useEffect(() => {
     setIntitialGarageStorageItems();
   }, []);
@@ -66,7 +71,7 @@ const Root = () => {
         break;
       case "addItemModal":
         setIsOn("addItemModalOn");
-        setInnerIsOn("logInButton");
+        setInnerIsOn("logOutButton");
 
         break;
       case "deleteItemAlertModal":
@@ -170,7 +175,8 @@ const Root = () => {
           innerIsOn,
           counter: counterFunction,
           buyCounter,
-          resetLocalStorage
+          resetLocalStorage,
+          resetUsersMailArray
         }}
       >
         <Switch>

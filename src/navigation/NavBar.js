@@ -9,7 +9,13 @@ import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 
 const NavBar = () => {
   const context = useContext(AppContext);
-  const { buyCounter, isOn, toggleManager, resetLocalStorage } = context;
+  const {
+    buyCounter,
+    isOn,
+    toggleManager,
+    resetLocalStorage,
+    resetUsersMailArray
+  } = context;
 
   const { home, aboutProject, contact } = routes;
   const { pathname } = window.location;
@@ -37,6 +43,9 @@ const NavBar = () => {
       </div>
       <div className="navbar-item ">
         {pathname === home && _renderResetLocalStorageButton()}
+      </div>
+      <div className="navbar-item ">
+        {pathname === contact && _renderResetUsersMailArray()}
       </div>
     </div>
   );
@@ -78,6 +87,11 @@ const NavBar = () => {
   const _renderResetLocalStorageButton = () => (
     <button className="button is-grey" onClick={resetLocalStorage}>
       Reset Local Storage
+    </button>
+  );
+  const _renderResetUsersMailArray = () => (
+    <button className="button is-grey" onClick={resetUsersMailArray}>
+      Reset Mails
     </button>
   );
   const _renderNavbarEnd = () => (

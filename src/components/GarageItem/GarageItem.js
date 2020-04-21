@@ -50,7 +50,11 @@ const GarageItem = props => {
       <button
         className="delete is-small is-pulled-right"
         id="deleteItemAlertModal"
-        onClick={toggleManager}
+        onClick={() => {
+          if (window.confirm("Are you sure to delete this record?")) {
+            deleteGarageItem(id);
+          }
+        }}
       ></button>
       <div className="column columns">
         {_renderImageSubColumn()}
